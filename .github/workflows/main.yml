@@ -1,0 +1,29 @@
+name: Fetch Modified Files
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  fetch-modified-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: List modified files
+        id: modified_files
+        run: |
+          git fetch origin
+          echo "Modified files:"
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }}
+      
+      - name: Get modified file contents
+        run: |
+          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          for file in $files
+          do
+            echo "File: $file"
+            cat $file
+          done

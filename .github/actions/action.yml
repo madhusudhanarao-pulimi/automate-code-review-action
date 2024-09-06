@@ -1,0 +1,10 @@
+name: Fetch Modified Files
+description: A GitHub Action to fetch modified file names and content from the caller repository
+inputs:
+  github-token:
+    description: 'GitHub Token'
+    required: true
+
+runs:
+  using: "node12"
+  main: "dist/index.js"
