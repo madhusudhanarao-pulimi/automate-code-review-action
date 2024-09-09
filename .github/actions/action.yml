@@ -53,7 +53,7 @@ runs:
       shell: pwsh  # Use PowerShell for Windows
     - name: Display summary
       run: |
-        Write-Output "$(inputs.run_id) - $(inputs.repo_owner) - Job ID: $(inputs.repo_name)"
+        Write-Output "${{ inputs.run_id }} - ${{ inputs.repo_name }} "
       shell: pwsh
   
   
