@@ -6,5 +6,39 @@ inputs:
     required: true
 
 runs:
-  using: "node12"
-  main: "dist/index.js"
+  using: 'composite'
+  steps:
+    - name: Checkout action repository
+      uses: actions/checkout@v4
+      with:
+        repository: madhusudhanarao-pulimi/automate-code-review-action
+        path: automate-code-review-action
+
+    - name: List files after Checkout action repository
+      run: |
+        echo "Listing the files in the automate-code-review-action directory"
+        python -c "import os; print(os.getcwd()); [print(f) for f in os.listdir('automate-code-review-action')]"
+      shell: pwsh
+      
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies (Linux/macOS)
+      if: runner.os != 'Windows'
+      run: |
+        python -m venv action_repo/myenv
+        source action_repo/myenv/bin/activate
+        pip install -r action_repo/requirements.txt
+        pip install requests
+      shell: bash  # Use bash shell for Unix-like systems
+
+    - name: Install dependencies (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        python -m venv action_repo/myenv
+        .\action_repo\myenv\Scripts\Activate
+        pip install -r action_repo/requirements.txt
+        pip install requests
+      shell: pwsh  # Use PowerShell for Windows
