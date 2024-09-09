@@ -28,17 +28,17 @@ runs:
     - name: Install dependencies (Linux/macOS)
       if: runner.os != 'Windows'
       run: |
-        python -m venv action_repo/myenv
-        source action_repo/myenv/bin/activate
-        pip install -r action_repo/requirements.txt
+        python -m venv automate-code-review-action/myenv
+        source automate-code-review-action/myenv/bin/activate
+        pip install -r automate-code-review-action/requirements.txt
         pip install requests
       shell: bash  # Use bash shell for Unix-like systems
 
     - name: Install dependencies (Windows)
       if: runner.os == 'Windows'
       run: |
-        python -m venv action_repo/myenv
-        .\action_repo\myenv\Scripts\Activate
-        pip install -r action_repo/requirements.txt
+        python -m venv automate-code-review-action/myenv
+        .\action_automate-code-review-actionrepo\myenv\Scripts\Activate
+        pip install -r automate-code-review-action/requirements.txt
         pip install requests
       shell: pwsh  # Use PowerShell for Windows
